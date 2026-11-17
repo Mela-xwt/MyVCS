@@ -1,0 +1,7 @@
+PASS P1 client -> stage3 service: full/internal/thin legacy operations
+PASS stage3 and P1 both read format2 without migration
+PASS stage3 client -> P1 service on upgraded repo: clone and push
+PASS stage3 client cannot bypass new policy or spoof trusted service identity
+PASS stage3 GC retains P1 stash working/index/untracked, format 1
+PASS stage3 GC retains P1 stash working/index/untracked, format 2
+Compatibility workspace: /tmp/myvcs-stage3-compat-_8s3twu2

@@ -1,0 +1,7 @@
+PASS stage3 client -> stage2 service: full/internal/thin legacy operations
+Traceback (most recent call last):
+  File "/home/oslab/os-lab/myvcs-p1.JwO5P7/collaboration-stage3/compatibility.py", line 47, in <module>
+    rejected = run(old, "--repo", "server", "verify", success=False)
+  File "/home/oslab/os-lab/myvcs-p1.JwO5P7/collaboration-stage3/compatibility.py", line 22, in run
+    assert result.returncode == 0 if success else result.returncode != 0, (command, result.stdout, result.stderr)
+AssertionError: (('--repo', 'server', 'verify'), 'verify ok: 1 commit(s), 1 blob reference(s), 2 reachable object(s)\n', '')

@@ -1,0 +1,285 @@
+rustc 1.99.0 (b940084d7 2026-09-28)
+   Compiling proc-macro2 v1.0.107
+   Compiling version_check v0.9.5
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.26
+   Compiling typenum v1.20.1
+   Compiling generic-array v0.14.7
+   Compiling libc v0.2.190
+   Compiling serde_core v1.0.229
+   Compiling utf8parse v0.2.2
+   Compiling anstyle-parse v1.0.0
+   Compiling anstyle v1.0.14
+   Compiling cfg-if v1.0.5
+   Compiling crc32fast v1.5.2
+   Compiling syn v3.0.7
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling colorchoice v1.0.5
+   Compiling anstyle-query v1.1.5
+   Compiling zmij v1.0.23
+   Compiling anstream v1.0.0
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling simd-adler32 v0.3.10
+   Compiling serde v1.0.229
+   Compiling serde_json v1.0.152
+   Compiling heck v0.5.0
+   Compiling adler2 v2.0.1
+   Compiling strsim v0.11.1
+   Compiling clap_lex v1.1.1
+   Compiling anyhow v1.0.104
+   Compiling clap_builder v4.6.7
+   Compiling miniz_oxide v0.9.1
+   Compiling digest v0.10.7
+   Compiling cpufeatures v0.2.17
+   Compiling same-file v1.0.6
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling walkdir v2.5.0
+   Compiling clap_derive v4.6.7
+   Compiling serde_derive v1.0.229
+   Compiling clap v4.6.7
+   Compiling sha2 v0.10.9
+   Compiling flate2 v1.1.10
+   Compiling memmap2 v0.9.11
+   Compiling fs2 v0.4.3
+   Compiling similar v2.7.0
+   Compiling myvcs v0.1.0 (/home/oslab/os-lab/myvcs-stage3.bv1dWH)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 15.78s
+     Running unittests src/lib.rs (target/debug/deps/myvcs-b84061a0f73f8c02)
+
+running 40 tests
+test repo::line_merge::tests::overlapping_insertions_conflict_and_preserve_suffix_bytes ... ok
+test repo::receive::tests::crash_many_worker ... ok
+test repo::receive::tests::crash_worker ... ok
+test repo::line_merge::tests::independent_insert_delete_and_repeated_line_edits ... ok
+test repo::ref_state::tests::atomic_state_crash_worker ... ok
+test repo::receive::tests::failures_never_publish_a_dangling_ref ... ok
+test repo::ref_state::tests::process_exit_at_state_rename_is_all_old_or_all_new_with_reflog ... ok
+test repo::remote::pack::tests::absent_pin_is_not_confirmed_and_full_encoding_remains_available ... ok
+test repo::receive::tests::actual_process_loss_during_multi_receive_installs_or_publication ... ok
+test repo::remote::pack::tests::delta_binary_checks_ranges_counts_lengths_and_opcodes ... ok
+test repo::receive::tests::abrupt_process_exit_preserves_old_or_complete_new_ref ... ok
+test repo::ref_state::tests::upgrade_crash_boundaries_and_retry_use_legacy_until_marker ... ok
+test repo::remote::pack::tests::delta_chain_at_limit_succeeds_and_next_edge_is_rejected ... ok
+test repo::remote::pack::tests::confirmed_external_base_survives_gc_and_is_reinstalled_if_reachable ... ok
+test repo::remote::pack::tests::internal_pack_saves_actual_bytes_and_reconstructs_every_object ... ok
+test repo::remote::pack::tests::work_budget_and_receive_quota_fail_explicitly ... ok
+test util::tests::adaptive_compression_cold_is_best ... ok
+test util::tests::adaptive_compression_hot_is_fast ... ok
+test util::tests::apply_delta_reconstructs_target ... ok
+test util::tests::blob_temperature_categorization ... ok
+test util::tests::chunk_size_is_reasonable ... ok
+test util::tests::delta_encode_decode_roundtrip ... ok
+test util::tests::delta_reconstructs_insertions_deletions_overwrites_and_empty_files ... ok
+test util::tests::delta_rejects_hash_candidates_with_different_first_blocks ... ok
+test util::tests::delta_repeated_blocks_do_not_allocate_per_block ... ok
+test util::tests::delta_retains_eighth_matching_candidate ... ok
+test repo::remote::pack::tests::delta_pack_rejects_missing_forward_cyclic_unconfirmed_corrupt_and_oversized_data ... ok
+test util::tests::fs_detect_returns_valid_type ... ok
+test util::tests::fs_type_openeuler_native ... ok
+test util::tests::fs_type_optimal_buffer_sizes ... ok
+test util::tests::hash_output_is_64_hex_chars ... ok
+test util::tests::large_compression_auto_checks_distributed_samples_and_rewinds ... ok
+test util::tests::large_compression_short_read_is_an_error ... ok
+test util::tests::numa_topology_has_at_least_one_node ... ok
+test util::tests::parse_loadavg_1_works ... ok
+test util::tests::parse_memtotal_kb_works ... ok
+test util::tests::parse_os_release_id_handles_quotes_and_case ... ok
+test repo::remote::pack::tests::maximum_delta_working_set_has_measured_allocation_bound ... ok
+test util::tests::delta_unique_blocks_use_bounded_index_memory ... ok
+test repo::remote::pack::tests::ineffective_delta_falls_back_and_full_receive_memory_is_bounded ... ok
+
+test result: ok. 40 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.89s
+
+     Running unittests src/main.rs (target/debug/deps/myvcs-edb9e46c4da817b2)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/local_interfaces.rs (target/debug/deps/local_interfaces-931b9c107bdfd764)
+
+running 9 tests
+test bare_repository_rejects_worktree_commands ... ok
+test gc_preserves_staged_objects ... ok
+test empty_and_explicit_repositories_are_usable ... ok
+test recursive_add_rejects_nonportable_names_without_aliasing_them ... ok
+test raw_delta_magic_file_roundtrips ... ok
+test invalid_reference_cannot_escape_metadata ... ok
+test worktree_symlinks_are_not_followed ... ok
+test gc_preserves_remote_and_nested_refs ... ok
+test unsafe_paths_and_oids_fail_without_partial_deletion ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+     Running tests/receive.rs (target/debug/deps/receive-d745f16de30257a6)
+
+running 13 tests
+test abandoned_atomic_temps_do_not_become_references ... ok
+test aggregate_receive_bytes_and_decode_depth_are_bounded ... ok
+test checkout_missing_parent_does_not_move_head ... ok
+test compressed_truncation_and_legacy_preallocation_padding ... ok
+test legacy_delta_bases_are_gc_roots_and_literal_magic_is_full_content ... ok
+test malicious_commit_paths_and_bounded_delta_expansion_fail_closed ... ok
+test compare_and_swap_has_one_winner_and_rejects_non_fast_forward ... ok
+test metadata_symlinks_are_rejected_before_read_or_write ... ok
+test legacy_parent_and_repository_without_marker_remain_readable ... ok
+test reference_enumeration_rejects_backslash_aliases ... ok
+test merge_head_and_detached_head_are_gc_roots ... ok
+test receive_limits_hashes_and_stale_cas_are_enforced ... ok
+test receive_validates_closure_and_publishes_bare_ref ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/remote_collaboration.rs (target/debug/deps/remote_collaboration-51e73d2fc1ccb388)
+
+running 12 tests
+test competing_network_sessions_compare_old_value_at_publication ... ok
+test empty_clone_first_push_fetch_gc_pull_and_incremental_negotiation ... ok
+test bad_and_interrupted_packs_never_publish ... ok
+test bounded_frames_and_handshake_reject_invalid_peers ... ok
+test outgoing_snapshot_survives_gc_during_network_negotiation ... ok
+test pull_protects_dirty_staged_untracked_and_structural_collisions ... ok
+test remote_config_nested_branch_read_only_and_url_validation ... ok
+test gc_delta_storage_exports_complete_logical_objects ... ok
+test stale_push_conflict_resolution_preserves_both_parents_and_clean_changes ... ok
+test thin_protocol_pins_base_before_gc_and_refuses_unconfirmed_base ... ok
+test negotiation_spans_multiple_batches_and_fetch_head_is_a_gc_root ... ok
+test gc_and_plain_repositories_sync_both_ways_with_delta_and_restore_all_history ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.43s
+
+     Running tests/repo_regressions.rs (target/debug/deps/repo_regressions-7aeeac9e27b498da)
+
+running 14 tests
+test another_merge_cannot_discard_pending_merge_parent ... ok
+test gc_compares_against_actual_stored_size_and_writes_final_compression ... ok
+test automatic_merge_and_fast_forward_keep_their_existing_parent_semantics ... ok
+test invalid_large_add_policy_leaves_index_and_objects_unchanged ... ok
+test gc_keeps_original_object_when_delta_does_not_save_enough_space ... ok
+test large_add_policy_does_not_change_small_file_path ... ok
+test resolved_merge_records_both_parents_and_preserves_history_after_gc ... ok
+test checkout_and_reset_discard_pending_merge_state ... ok
+test gc_preserves_multiple_versions_and_is_idempotent ... ok
+test resolving_conflict_by_deleting_file_keeps_both_parents ... ok
+test staged_deletion_is_not_reported_as_unstaged ... ok
+test unstaged_deletion_is_still_reported ... ok
+test unresolved_conflicts_cannot_be_committed_with_unrelated_staged_changes ... ok
+test large_add_policy_preserves_content_and_existing_objects ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 8.04s
+
+     Running tests/team_merge.rs (target/debug/deps/team_merge-a84be76864ecb511)
+
+running 16 tests
+test best_common_ancestor_rejects_criss_cross_without_mutation ... ok
+test abort_obstruction_is_non_destructive_and_retryable ... ok
+test abort_recovers_interrupted_restore_and_rejects_changed_head ... ok
+test abort_restores_deleted_and_created_paths_retains_unrelated_files ... ok
+test binary_deleted_ours_can_resolve_as_deletion_with_both_parents ... ok
+test bounded_text_merge_preserves_ours_and_records_limit_conflict ... ok
+test delete_versus_empty_text_file_is_still_a_conflict ... ok
+test binary_modify_delete_preserves_ours_and_aborts ... ok
+test disjoint_lines_merge_and_record_two_parents ... ok
+test dirty_staged_and_worktree_are_rejected_before_mutation ... ok
+test fast_forward_untracked_and_structural_collisions_are_rejected ... ok
+test journal_roots_survive_gc_before_merge_head_is_written ... ok
+test identical_edits_and_crlf_without_final_newline ... ok
+test materialized_journal_keeps_conflicts_authoritative ... ok
+test journal_prepared_boundary_cannot_commit_an_unmaterialized_merge ... ok
+test overlap_resolution_records_two_parents_and_abort_restores_exact_state ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.28s
+
+     Running tests/team_recovery.rs (target/debug/deps/team_recovery-2e99b36f8204f22d)
+
+running 12 tests
+test cas_process_worker ... ok
+test legacy_handle_switches_and_future_format_is_rejected ... ok
+test competing_real_processes_have_one_atomic_cas_winner ... ok
+test cli_team_requires_explicit_existing_repository_upgrade ... ok
+test metadata_capacity_fails_before_checkout_or_reset_materialization ... ok
+test detached_and_reset_reflog_recover_files_despite_stale_legacy ... ok
+test reflog_gc_recovery_expiry_and_sequence ... ok
+test receive_many_callback_union_and_last_cas_deny_before_install ... ok
+test state_parser_rejects_duplicate_refs_and_sequence_corruption ... ok
+test receive_union_caps_and_explicit_force_deletion ... ok
+test vector_limits_and_atomic_update_delete_create ... ok
+test upgrade_snapshot_atomic_cas_alias_and_closed_parser ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/team_remote.rs (target/debug/deps/team_remote-390a86dea676601c)
+
+running 14 tests
+test concurrent_atomic_network_sessions_publish_no_partial_batch ... ok
+test complete_advertisement_prunes_deleted_upstream_only ... ok
+test dag_log_is_topological_and_includes_second_parent_and_detached_roots ... ok
+test explicit_tag_fetch_conflict_has_no_partial_tracking_update ... ok
+test full_pack_downgrade_and_format1_extended_receive_error ... ok
+test managed_legacy_writes_require_upgrade_and_read_false_denies_advertisement ... ok
+test no_advertisement_without_read_and_no_wire_principal_spoofing ... ok
+test managed_policy_and_atomic_failure ... ok
+test identity_tags_and_upstream_routes ... ok
+test pruning_and_force_lease_are_scoped ... ok
+test separate_force_and_delete_permissions_and_unused_leases_fail ... ok
+test tag_only_history_is_transferred_and_survives_gc_without_reflog ... ok
+test v1_and_v2_recheck_policy_revocation_under_final_lock ... ok
+test strict_policy_and_audit_maintenance_fail_closed ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.43s
+
+   Doc-tests myvcs
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.26
+   Compiling version_check v0.9.5
+   Compiling typenum v1.20.1
+   Compiling generic-array v0.14.7
+   Compiling serde_core v1.0.229
+   Compiling libc v0.2.190
+   Compiling utf8parse v0.2.2
+   Compiling anstyle-parse v1.0.0
+   Compiling crc32fast v1.5.2
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling colorchoice v1.0.5
+   Compiling syn v3.0.7
+   Compiling anstyle-query v1.1.5
+   Compiling cfg-if v1.0.5
+   Compiling zmij v1.0.23
+   Compiling anstyle v1.0.14
+   Compiling anstream v1.0.0
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling serde v1.0.229
+   Compiling serde_json v1.0.152
+   Compiling heck v0.5.0
+   Compiling anyhow v1.0.104
+   Compiling strsim v0.11.1
+   Compiling clap_lex v1.1.1
+   Compiling adler2 v2.0.1
+   Compiling simd-adler32 v0.3.10
+   Compiling miniz_oxide v0.9.1
+   Compiling clap_builder v4.6.7
+   Compiling digest v0.10.7
+   Compiling serde_derive v1.0.229
+   Compiling clap_derive v4.6.7
+   Compiling same-file v1.0.6
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling cpufeatures v0.2.17
+   Compiling clap v4.6.7
+   Compiling sha2 v0.10.9
+   Compiling walkdir v2.5.0
+   Compiling flate2 v1.1.10
+   Compiling memmap2 v0.9.11
+   Compiling fs2 v0.4.3
+   Compiling similar v2.7.0
+   Compiling myvcs v0.1.0 (/home/oslab/os-lab/myvcs-stage3.bv1dWH)
+    Finished `release` profile [optimized] target(s) in 15.80s

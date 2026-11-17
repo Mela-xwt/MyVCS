@@ -1,0 +1,223 @@
+$ init --bare --team /tmp/myvcs-stage3-ssh-7k4ylwye/repositories/team actor=None exit=0
+initialized empty myvcs repository in /tmp/myvcs-stage3-ssh-7k4ylwye/repositories/team
+WARNING: 'UsePAM no' is not supported in openEuler and may cause several problems.
+$ clone ssh://oslab@127.0.0.1:56867/team a actor=alice exit=0
+initialized empty myvcs repository in /tmp/myvcs-stage3-ssh-7k4ylwye/a/.myvcs
+fetched origin/main (unborn)
+cloned into a
+$ --repo a upgrade --quiescent actor=None exit=0
+$ --repo a config user.name Alice actor=None exit=0
+Alice
+$ --repo a config user.email alice@example.test actor=None exit=0
+alice@example.test
+$ --repo a add shared.txt actor=None exit=0
+staged 1 file(s)
+$ --repo a commit -m base actor=None exit=0
+[d0eec336] base
+$ --repo a push actor=alice exit=0
+pushed origin/main d0eec3368d2974701496e5fc7f2674894c1d85dd672cedde06aef535786b1c39 (2 objects)
+$ clone ssh://oslab@127.0.0.1:56867/team b actor=bob exit=0
+initialized empty myvcs repository in /tmp/myvcs-stage3-ssh-7k4ylwye/b/.myvcs
+fetched origin/main d0eec3368d2974701496e5fc7f2674894c1d85dd672cedde06aef535786b1c39
+cloned into b
+$ --repo b upgrade --quiescent actor=None exit=0
+$ clone ssh://oslab@127.0.0.1:56867/team r actor=reader exit=0
+initialized empty myvcs repository in /tmp/myvcs-stage3-ssh-7k4ylwye/r/.myvcs
+fetched origin/main d0eec3368d2974701496e5fc7f2674894c1d85dd672cedde06aef535786b1c39
+cloned into r
+$ --repo r upgrade --quiescent actor=None exit=0
+$ clone ssh://oslab@127.0.0.1:56867/team denied actor=outsider exit=1
+initialized empty myvcs repository in /tmp/myvcs-stage3-ssh-7k4ylwye/denied/.myvcs
+EXPECTED: Error: denied: missing or unknown principal
+Error: remote: denied: missing or unknown principal
+$ --repo r config user.name alice actor=None exit=0
+alice
+$ --repo r config user.email alice@example.test actor=None exit=0
+alice@example.test
+$ --repo r add shared.txt actor=None exit=0
+staged 1 file(s)
+$ --repo r commit -m reader author cannot grant write actor=None exit=0
+[cedb7102] reader author cannot grant write
+$ --repo r push actor=reader exit=1
+EXPECTED: Error: denied: write permission for refs/heads/main
+Error: remote: denied: write permission for refs/heads/main
+$ --repo a add shared.txt actor=None exit=0
+staged 1 file(s)
+$ --repo a commit -m Alice first line actor=None exit=0
+[e886613b] Alice first line
+$ --repo a push actor=alice exit=0
+pushed origin/main e886613b753a99cbee1771a313d16f7c2cea1fb0b7824eb7bfd40251c92955c3 (2 objects)
+$ --repo b add shared.txt actor=None exit=0
+staged 1 file(s)
+$ --repo b commit -m Bob last line actor=None exit=0
+[5dbeb4ca] Bob last line
+$ --repo b push actor=bob exit=1
+EXPECTED: Error: non-fast-forward update rejected
+Error: push not acknowledged; it may have committed: fetch and inspect the remote tip before retrying
+
+Caused by:
+    remote: non-fast-forward update rejected
+$ --repo b pull actor=bob exit=0
+fetched origin/main e886613b753a99cbee1771a313d16f7c2cea1fb0b7824eb7bfd40251c92955c3
+merged e886613b753a99cbee1771a313d16f7c2cea1fb0b7824eb7bfd40251c92955c3 into current branch as a20c6fbb
+$ --repo b push actor=bob exit=0
+pushed origin/main a20c6fbba67d16afff01e9a2d6f8ca22e9a80e70da5dd9194d9aa9ffaaa4c2af (4 objects)
+$ --repo a pull actor=alice exit=0
+fetched origin/main a20c6fbba67d16afff01e9a2d6f8ca22e9a80e70da5dd9194d9aa9ffaaa4c2af
+fast-forward merge to a20c6fbb
+$ --repo a tag v1 actor=None exit=0
+$ --repo a branch release actor=None exit=0
+created branch release
+$ --repo a push --atomic origin main release refs/tags/v1 actor=alice exit=0
+pushed 3 refs to origin
+$ --repo b fetch --tags actor=bob exit=0
+fetched origin/main a20c6fbba67d16afff01e9a2d6f8ca22e9a80e70da5dd9194d9aa9ffaaa4c2af
+$ --repo b log --graph --all actor=None exit=0
+* commit a20c6fbba67d16afff01e9a2d6f8ca22e9a80e70da5dd9194d9aa9ffaaa4c2af (HEAD, refs/heads/main, refs/remotes/origin/main, refs/tags/v1)
+Parents: 5dbeb4ca996a0b84efa909e9db0bfd2747a8e931ca6b55c33ac3d75ccda8f6e9 e886613b753a99cbee1771a313d16f7c2cea1fb0b7824eb7bfd40251c92955c3
+| -> 5dbeb4ca996a0b84efa909e9db0bfd2747a8e931ca6b55c33ac3d75ccda8f6e9
+| -> e886613b753a99cbee1771a313d16f7c2cea1fb0b7824eb7bfd40251c92955c3
+Author: oslab
+Date:   1791998760
+
+    Merge branch e886613b753a99cbee1771a313d16f7c2cea1fb0b7824eb7bfd40251c92955c3
+
+* commit 5dbeb4ca996a0b84efa909e9db0bfd2747a8e931ca6b55c33ac3d75ccda8f6e9
+Parents: d0eec3368d2974701496e5fc7f2674894c1d85dd672cedde06aef535786b1c39
+| -> d0eec3368d2974701496e5fc7f2674894c1d85dd672cedde06aef535786b1c39
+Author: oslab
+Date:   1791998760
+
+    Bob last line
+
+* commit e886613b753a99cbee1771a313d16f7c2cea1fb0b7824eb7bfd40251c92955c3
+Parents: d0eec3368d2974701496e5fc7f2674894c1d85dd672cedde06aef535786b1c39
+| -> d0eec3368d2974701496e5fc7f2674894c1d85dd672cedde06aef535786b1c39
+Author: Alice <alice@example.test>
+Date:   1791998760
+
+    Alice first line
+
+* commit d0eec3368d2974701496e5fc7f2674894c1d85dd672cedde06aef535786b1c39
+Parents: 
+Author: Alice <alice@example.test>
+Date:   1791998759
+
+    base
+$ --repo b gc actor=None exit=0
+gc completed: optimized 0 blob(s), removed 0 unreachable object(s)
+$ --repo b verify actor=None exit=0
+verify ok: 4 commit(s), 4 blob reference(s), 8 reachable object(s)
+$ --repo b branch forbidden actor=None exit=0
+created branch forbidden
+$ --repo b branch bob/allowed actor=None exit=0
+created branch bob/allowed
+$ --repo b push --atomic origin bob/allowed forbidden actor=bob exit=1
+EXPECTED: Error: denied: write permission for refs/heads/forbidden
+Error: remote: denied: write permission for refs/heads/forbidden
+$ --repo b fetch origin release actor=bob exit=0
+fetched origin/release a20c6fbba67d16afff01e9a2d6f8ca22e9a80e70da5dd9194d9aa9ffaaa4c2af
+$ --repo a push --atomic origin :release actor=alice exit=0
+pushed 1 refs to origin
+$ --repo b fetch --prune actor=bob exit=0
+fetched origin/main a20c6fbba67d16afff01e9a2d6f8ca22e9a80e70da5dd9194d9aa9ffaaa4c2af
+$ --repo a reset --hard d0eec3368d2974701496e5fc7f2674894c1d85dd672cedde06aef535786b1c39 actor=None exit=0
+HEAD is now at d0eec336
+$ --repo a add shared.txt actor=None exit=0
+staged 1 file(s)
+$ --repo a commit -m controlled rewrite actor=None exit=0
+[8bc411f6] controlled rewrite
+$ --repo a push --force-with-lease refs/heads/main:d0eec3368d2974701496e5fc7f2674894c1d85dd672cedde06aef535786b1c39 actor=alice exit=1
+EXPECTED: Error: reference changed since advertisement or stale lease
+$ --repo a push --force-with-lease refs/heads/main:a20c6fbba67d16afff01e9a2d6f8ca22e9a80e70da5dd9194d9aa9ffaaa4c2af actor=alice exit=0
+pushed 1 refs to origin
+$ clone ssh://oslab@127.0.0.1:56867/team c actor=alice exit=0
+initialized empty myvcs repository in /tmp/myvcs-stage3-ssh-7k4ylwye/c/.myvcs
+fetched origin/main 8bc411f678945622fdbb72a74e70ebd3646f0fee09f53ff6b40fab8f82c186e1
+cloned into c
+$ --repo c upgrade --quiescent actor=None exit=0
+$ --repo c add shared.txt actor=None exit=0
+staged 1 file(s)
+$ --repo c commit -m concurrent c actor=None exit=0
+[bd6073e8] concurrent c
+$ --repo c branch race actor=None exit=0
+created branch race
+$ clone ssh://oslab@127.0.0.1:56867/team d actor=alice exit=0
+initialized empty myvcs repository in /tmp/myvcs-stage3-ssh-7k4ylwye/d/.myvcs
+fetched origin/main 8bc411f678945622fdbb72a74e70ebd3646f0fee09f53ff6b40fab8f82c186e1
+cloned into d
+$ --repo d upgrade --quiescent actor=None exit=0
+$ --repo d add shared.txt actor=None exit=0
+staged 1 file(s)
+$ --repo d commit -m concurrent d actor=None exit=0
+[109b1d4f] concurrent d
+$ --repo d branch race actor=None exit=0
+created branch race
+CONCURRENT c exit=1  Error: reference changed concurrently: refs/heads/main
+Error: push not acknowledged; it may have committed: fetch and inspect before retrying
+
+Caused by:
+    remote: reference changed concurrently: refs/heads/main
+
+CONCURRENT d exit=0 pushed 2 refs to origin
+ 
+$ --repo a push --atomic origin :main actor=alice exit=1
+EXPECTED: Error: cannot delete default HEAD branch
+Error: remote: cannot delete default HEAD branch
+$ --repo a push --atomic origin :refs/tags/v1 actor=alice exit=0
+pushed 1 refs to origin
+$ --repo repositories/team gc actor=None exit=0
+gc completed: optimized 0 blob(s), removed 0 unreachable object(s)
+$ --repo repositories/team recover a20c6fbba67d16afff01e9a2d6f8ca22e9a80e70da5dd9194d9aa9ffaaa4c2af rescued actor=None exit=0
+$ --repo repositories/team audit actor=None exit=0
+{"actor":"alice","op":"read","refs":[],"result":"allowed","time":1791998758}
+{"actor":"alice","op":"read","refs":[],"result":"allowed","time":1791998759}
+{"actor":"alice","op":"read","refs":[],"result":"allowed","time":1791998759}
+{"actor":"bob","op":"read","refs":[],"result":"allowed","time":1791998759}
+{"actor":"bob","op":"read","refs":[],"result":"allowed","time":1791998759}
+{"actor":"reader","op":"read","refs":[],"result":"allowed","time":1791998759}
+{"actor":"reader","op":"read","refs":[],"result":"allowed","time":1791998759}
+{"actor":"alice","op":"push","refs":[{"name":"refs/heads/main","expected":null,"new":"d0eec3368d2974701496e5fc7f2674894c1d85dd672cedde06aef535786b1c39"}],"result":"success","time":1791998759}
+{"actor":"outsider","op":"session","refs":[],"result":"denied","time":1791998760}
+{"actor":"reader","op":"read","refs":[],"result":"allowed","time":1791998760}
+{"actor":"reader","op":"push","refs":[{"name":"refs/heads/main","expected":"d0eec3368d2974701496e5fc7f2674894c1d85dd672cedde06aef535786b1c39","new":"cedb7102160d9329ebc385e2bf205df1145aef75f61a34327848de036445f614"}],"result":"denied","time":1791998760}
+{"actor":"alice","op":"read","refs":[],"result":"allowed","time":1791998760}
+{"actor":"bob","op":"read","refs":[],"result":"allowed","time":1791998760}
+{"actor":"bob","op":"push","refs":[{"name":"refs/heads/main","expected":"e886613b753a99cbee1771a313d16f7c2cea1fb0b7824eb7bfd40251c92955c3","new":"5dbeb4ca996a0b84efa909e9db0bfd2747a8e931ca6b55c33ac3d75ccda8f6e9"}],"result":"failed","time":1791998760}
+{"actor":"bob","op":"read","refs":[],"result":"allowed","time":1791998760}
+{"actor":"alice","op":"push","refs":[{"name":"refs/heads/main","expected":"d0eec3368d2974701496e5fc7f2674894c1d85dd672cedde06aef535786b1c39","new":"e886613b753a99cbee1771a313d16f7c2cea1fb0b7824eb7bfd40251c92955c3"}],"result":"success","time":1791998760}
+{"actor":"bob","op":"read","refs":[],"result":"allowed","time":1791998761}
+{"actor":"alice","op":"read","refs":[],"result":"allowed","time":1791998761}
+{"actor":"alice","op":"read","refs":[],"result":"allowed","time":1791998761}
+{"actor":"bob","op":"read","refs":[],"result":"allowed","time":1791998761}
+{"actor":"bob","op":"read","refs":[],"result":"allowed","time":1791998761}
+{"actor":"bob","op":"push","refs":[{"name":"refs/heads/bob/allowed","expected":null,"new":"a20c6fbba67d16afff01e9a2d6f8ca22e9a80e70da5dd9194d9aa9ffaaa4c2af"},{"name":"refs/heads/forbidden","expected":null,"new":"a20c6fbba67d16afff01e9a2d6f8ca22e9a80e70da5dd9194d9aa9ffaaa4c2af"}],"result":"denied","time":1791998761}
+{"actor":"bob","op":"push","refs":[{"name":"refs/heads/main","expected":"e886613b753a99cbee1771a313d16f7c2cea1fb0b7824eb7bfd40251c92955c3","new":"a20c6fbba67d16afff01e9a2d6f8ca22e9a80e70da5dd9194d9aa9ffaaa4c2af"}],"result":"success","time":1791998761}
+{"actor":"alice","op":"push","refs":[{"name":"refs/heads/main","expected":"a20c6fbba67d16afff01e9a2d6f8ca22e9a80e70da5dd9194d9aa9ffaaa4c2af","new":"a20c6fbba67d16afff01e9a2d6f8ca22e9a80e70da5dd9194d9aa9ffaaa4c2af"}],"result":"success","time":1791998761}
+{"actor":"alice","op":"push","refs":[{"name":"refs/heads/release","expected":null,"new":"a20c6fbba67d16afff01e9a2d6f8ca22e9a80e70da5dd9194d9aa9ffaaa4c2af"}],"result":"success","time":1791998761}
+{"actor":"alice","op":"push","refs":[{"name":"refs/tags/v1","expected":null,"new":"a20c6fbba67d16afff01e9a2d6f8ca22e9a80e70da5dd9194d9aa9ffaaa4c2af"}],"result":"success","time":1791998761}
+{"actor":"bob","op":"read","refs":[],"result":"allowed","time":1791998762}
+{"actor":"alice","op":"read","refs":[],"result":"allowed","time":1791998762}
+{"actor":"bob","op":"read","refs":[],"result":"allowed","time":1791998762}
+{"actor":"alice","op":"read","refs":[],"result":"allowed","time":1791998762}
+{"actor":"alice","op":"session","refs":[],"result":"failed","time":1791998762}
+{"actor":"alice","op":"read","refs":[],"result":"allowed","time":1791998762}
+{"actor":"alice","op":"read","refs":[],"result":"allowed","time":1791998762}
+{"actor":"alice","op":"push","refs":[{"name":"refs/heads/release","expected":"a20c6fbba67d16afff01e9a2d6f8ca22e9a80e70da5dd9194d9aa9ffaaa4c2af","new":null}],"result":"success","time":1791998762}
+{"actor":"alice","op":"push","refs":[{"name":"refs/heads/main","expected":"a20c6fbba67d16afff01e9a2d6f8ca22e9a80e70da5dd9194d9aa9ffaaa4c2af","new":"8bc411f678945622fdbb72a74e70ebd3646f0fee09f53ff6b40fab8f82c186e1"}],"result":"success","time":1791998762}
+{"actor":"alice","op":"read","refs":[],"result":"allowed","time":1791998763}
+{"actor":"alice","op":"read","refs":[],"result":"allowed","time":1791998763}
+{"actor":"alice","op":"read","refs":[],"result":"allowed","time":1791998763}
+{"actor":"alice","op":"read","refs":[],"result":"allowed","time":1791998763}
+{"actor":"alice","op":"read","refs":[],"result":"allowed","time":1791998763}
+{"actor":"alice","op":"push","refs":[{"name":"refs/heads/main","expected":"8bc411f678945622fdbb72a74e70ebd3646f0fee09f53ff6b40fab8f82c186e1","new":"bd6073e8f7f4b50d73b1e3bf03fc273b3e6cdde54855128d3f14d85dde833582"},{"name":"refs/heads/race","expected":null,"new":"bd6073e8f7f4b50d73b1e3bf03fc273b3e6cdde54855128d3f14d85dde833582"}],"result":"failed","time":1791998763}
+{"actor":"alice","op":"read","refs":[],"result":"allowed","time":1791998763}
+{"actor":"alice","op":"push","refs":[{"name":"refs/heads/main","expected":"109b1d4fb39fe5b69943624effa0dee941d7a551ac7f55e56053c050cbd4c731","new":null}],"result":"failed","time":1791998763}
+{"actor":"alice","op":"push","refs":[{"name":"refs/heads/main","expected":"8bc411f678945622fdbb72a74e70ebd3646f0fee09f53ff6b40fab8f82c186e1","new":"109b1d4fb39fe5b69943624effa0dee941d7a551ac7f55e56053c050cbd4c731"}],"result":"success","time":1791998763}
+{"actor":"alice","op":"push","refs":[{"name":"refs/heads/race","expected":null,"new":"109b1d4fb39fe5b69943624effa0dee941d7a551ac7f55e56053c050cbd4c731"}],"result":"success","time":1791998763}
+{"actor":"alice","op":"read","refs":[],"result":"allowed","time":1791998764}
+{"actor":"alice","op":"push","refs":[{"name":"refs/tags/v1","expected":"a20c6fbba67d16afff01e9a2d6f8ca22e9a80e70da5dd9194d9aa9ffaaa4c2af","new":null}],"result":"success","time":1791998764}
+$ --repo repositories/team verify actor=None exit=0
+verify ok: 6 commit(s), 6 blob reference(s), 12 reachable object(s)
+PASS real SSH identities, line merge, atomic refs, tags, prune, explicit lease, GC/reflog recovery and audit
+SSH acceptance workspace: /tmp/myvcs-stage3-ssh-7k4ylwye

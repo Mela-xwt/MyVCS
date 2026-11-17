@@ -1,0 +1,37 @@
+20d6ec3c7749912074132d574cab3d331a188cfa75b3bd582f0cc0b260fc8d61  source.tar.gz
+3d904fb79881128fc30cbc92bf4ec298776372d2f80d954050b4d7e358171263  target/release/myvcs
+A lightweight VCS with SSH team collaboration
+
+Usage: myvcs [OPTIONS] <COMMAND>
+
+Commands:
+  remote    Configure named remotes (SSH or local subprocess transport)
+  push      
+  fetch     
+  pull      
+  config    
+  tag       
+  audit     
+  clone     
+  serve     Protocol-only stdio service. Root must be configured by the operator
+  upgrade   
+  reflog    
+  recover   
+  init      
+  add       
+  rm        
+  status    
+  diff      
+  commit    
+  log       
+  reset     
+  branch    
+  checkout  
+  merge     
+  gc        
+  verify    
+  help      Print this message or the help of the given subcommand(s)
+
+Options:
+      --repo <REPO>  
+  -h, --help         Print help

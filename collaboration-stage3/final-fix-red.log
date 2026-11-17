@@ -1,0 +1,23 @@
+   Compiling myvcs v0.1.0 (/mnt/d/DOWNLOAD/OperatingSystems/group_work)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.92s
+     Running tests/team_remote.rs (/tmp/myvcs-stage3-target/debug/deps/team_remote-3204019cb2989663)
+
+running 1 test
+test format1_attempt_audit_lists_exports_and_expires_without_upgrade ... FAILED
+
+failures:
+
+---- format1_attempt_audit_lists_exports_and_expires_without_upgrade stdout ----
+
+thread 'format1_attempt_audit_lists_exports_and_expires_without_upgrade' (1910948) panicked at tests/team_remote.rs:35:9:
+["--repo", "server", "audit", "--limit", "10000"]: Error: team references require format 2; stop all old myvcs processes, then run `myvcs upgrade --quiescent`
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    format1_attempt_audit_lists_exports_and_expires_without_upgrade
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.08s
+
+error: test failed, to rerun pass `--test team_remote`

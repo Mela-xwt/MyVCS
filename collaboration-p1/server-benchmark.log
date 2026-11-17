@@ -1,0 +1,57 @@
+{
+  "capabilities": {
+    "etmem": null,
+    "etmem_note": "No reliable runtime integration probe; presence is not proof of use",
+    "madvise_compiled": true,
+    "mmap_compiled": true,
+    "numa_nodes": 1,
+    "posix_fadvise_compiled": true,
+    "psi_memory_file": false,
+    "runtime_io_hints_verified": null
+  },
+  "filesystem": {
+    "path": "/home/oslab/os-lab/myvcs-p1.JwO5P7",
+    "type": "ext4"
+  },
+  "io": {
+    "buffer_bytes": 131072,
+    "buffer_probe_path": "/home/oslab/os-lab/myvcs-p1.JwO5P7",
+    "large_file_compression": "auto",
+    "note": "Reports the existing process policy; automatic filesystem probe uses process cwd"
+  },
+  "limits": {
+    "new_gc_chain_nodes": 8,
+    "object_bytes": 268435456,
+    "read_chain_nodes": 64
+  },
+  "schema_version": 1,
+  "system": {
+    "architecture": "x86_64",
+    "kernel": "5.10.0-60.18.0.50.oe2203.x86_64",
+    "os": "openEuler 22.03 LTS",
+    "platform": "linux"
+  }
+}
+text 1 old depth 18 bytes 8187 GC_ms 50.5 all history verified
+text 1 new depth 8 bytes 11966 GC_ms 62.61 all history verified
+text 2 new depth 8 bytes 11966 GC_ms 61.02 all history verified
+text 2 old depth 18 bytes 8187 GC_ms 50.02 all history verified
+text 3 old depth 18 bytes 8187 GC_ms 50.81 all history verified
+text 3 new depth 8 bytes 11966 GC_ms 60.84 all history verified
+binary 1 old depth 18 bytes 1056319 GC_ms 366.53 all history verified
+binary 1 new depth 8 bytes 3154986 GC_ms 435.36 all history verified
+binary 2 new depth 8 bytes 3154986 GC_ms 428.69 all history verified
+binary 2 old depth 18 bytes 1056319 GC_ms 354.47 all history verified
+binary 3 old depth 18 bytes 1056319 GC_ms 360.57 all history verified
+binary 3 new depth 8 bytes 3154986 GC_ms 432.7 all history verified
+unrelated-random 1 old depth 1 bytes 4725836 GC_ms 4408.83 all history verified
+unrelated-random 1 new depth 1 bytes 4725836 GC_ms 4423.43 all history verified
+unrelated-random 2 new depth 1 bytes 4725836 GC_ms 4427.26 all history verified
+unrelated-random 2 old depth 1 bytes 4725836 GC_ms 4414.39 all history verified
+unrelated-random 3 old depth 1 bytes 4725836 GC_ms 4388.26 all history verified
+unrelated-random 3 new depth 1 bytes 4725836 GC_ms 4424.63 all history verified
+PASS paired GC benchmark and all historical bytes
+1797fa39c2ef6f078f021bc39a783400bfef8ef4cb93135c52152c2372fad52f  source.tar.gz
+755832bc53db514f7b17ec70ab2760571ce87c8d9706e5ae5a557c67f6b68f2b  baseline.tar.gz
+2eb421d1a9e40dedcb5289b506ad8bf7b006bf4c9910cbbc419a2d1105783620  target/release/myvcs
+5e9e26e4f312fc3b23c74e3ab338c82f7aba4d4b982d6c7a090cad715b5e9e4b  baseline/target/release/myvcs

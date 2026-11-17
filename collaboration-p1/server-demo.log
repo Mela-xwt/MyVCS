@@ -1,0 +1,186 @@
+PASS all server source/test SHA256 match implementation commit b9237a7fdbfa9986a856b4190c33587b9f9a44a2
+initialized empty myvcs repository in /tmp/myvcs-p1-demo-55wvz2z5/.myvcs
+Workspace: /tmp/myvcs-p1-demo-55wvz2z5 Binary SHA256: 2eb421d1a9e40dedcb5289b506ad8bf7b006bf4c9910cbbc419a2d1105783620
+WRITE f.txt = 'base\n'
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 add f.txt
+staged 1 file(s)
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 commit -m base
+[76f7024e] base
+exit = 0
+
+F01 shared ignore rules
+WRITE .myvcsignore = '*.log\n!important.log\ntarget/\n'
+WRITE debug.log = 'ignored\n'
+WRITE important.log = 'included\n'
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 status
+On branch main
+
+No staged changes
+
+No unstaged changes
+
+Untracked files:
+  .myvcsignore
+  important.log
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 check-ignore debug.log important.log
+ignored	.myvcsignore:1	*.log	debug.log
+included	.myvcsignore:2	!important.log	important.log
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 add .
+staged 3 file(s)
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 commit -m 'ignore setup'
+[ac490701] ignore setup
+exit = 0
+
+F02 staged versus working bytes and single-file restore
+WRITE f.txt = 'staged\n'
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 add f.txt
+staged 1 file(s)
+exit = 0
+WRITE f.txt = 'working\n'
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 diff --staged f.txt
+diff --staged -- f.txt
+--- a/f.txt
++++ b/f.txt
+@@ -1 +1 @@
+-base
++staged
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 restore f.txt
+restored f.txt (worktree)
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 diff --staged
+diff --staged -- f.txt
+--- a/f.txt
++++ b/f.txt
+@@ -1 +1 @@
+-base
++staged
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 restore --staged f.txt
+restored f.txt (index)
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 diff --staged
+exit = 0
+PASS single-file restore preserved HEAD and unrelated files
+
+F03 independent index/worktree, untracked files, GC and pop safety
+WRITE f.txt = 'saved index\n'
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 add f.txt
+staged 1 file(s)
+exit = 0
+WRITE f.txt = 'saved work\n'
+WRITE notes.txt = 'untracked\n'
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 stash push --include-untracked -m 'P1 demonstration'
+saved stash 00000000000001792215455497090698-137882-1792215455497090883-5
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 stash list
+0	00000000000001792215455497090698-137882-1792215455497090883-5	79a1ec31	"P1 demonstration"
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 stash show
+stash 79a1ec319799426ebff53f1c7a6cdddcc21200303c0d75c3c847dbb615d88213: "P1 demonstration"
+tracked/index	f.txt
+untracked	notes.txt
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 gc
+gc completed: optimized 0 blob(s), removed 11 unreachable object(s)
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 verify
+verify ok: 5 commit(s), 9 blob reference(s), 11 reachable object(s)
+exit = 0
+WRITE f.txt = 'new local edits\n'
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 stash pop
+Error: stash apply would overwrite local changes: f.txt
+exit = 1
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 stash list
+0	00000000000001792215455497090698-137882-1792215455497090883-5	79a1ec31	"P1 demonstration"
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 restore f.txt
+restored f.txt (worktree)
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 stash pop
+stash restored and removed
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 diff --staged
+diff --staged -- f.txt
+--- a/f.txt
++++ b/f.txt
+@@ -1 +1 @@
+-base
++saved index
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 stash list
+exit = 0
+PASS worktree, index and untracked bytes restored after GC; ignored file untouched
+
+F04/F05 bounded delta and honest diagnostics (full comparison in benchmark.py)
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 doctor
+capabilities: {"etmem":null,"etmem_note":"No reliable runtime integration probe; presence is not proof of use","madvise_compiled":true,"mmap_compiled":true,"numa_nodes":1,"posix_fadvise_compiled":true,"psi_memory_file":false,"runtime_io_hints_verified":null}
+filesystem: {"path":"/tmp/myvcs-p1-demo-55wvz2z5","type":"other"}
+io: {"buffer_bytes":65536,"buffer_probe_path":"/home/oslab/os-lab/myvcs-p1.JwO5P7","large_file_compression":"auto","note":"Reports the existing process policy; automatic filesystem probe uses process cwd"}
+limits: {"new_gc_chain_nodes":8,"object_bytes":268435456,"read_chain_nodes":64}
+schema_version: 1
+system: {"architecture":"x86_64","kernel":"5.10.0-60.18.0.50.oe2203.x86_64","os":"openEuler 22.03 LTS","platform":"linux"}
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 doctor --json
+{
+  "capabilities": {
+    "etmem": null,
+    "etmem_note": "No reliable runtime integration probe; presence is not proof of use",
+    "madvise_compiled": true,
+    "mmap_compiled": true,
+    "numa_nodes": 1,
+    "posix_fadvise_compiled": true,
+    "psi_memory_file": false,
+    "runtime_io_hints_verified": null
+  },
+  "filesystem": {
+    "path": "/tmp/myvcs-p1-demo-55wvz2z5",
+    "type": "other"
+  },
+  "io": {
+    "buffer_bytes": 65536,
+    "buffer_probe_path": "/home/oslab/os-lab/myvcs-p1.JwO5P7",
+    "large_file_compression": "auto",
+    "note": "Reports the existing process policy; automatic filesystem probe uses process cwd"
+  },
+  "limits": {
+    "new_gc_chain_nodes": 8,
+    "object_bytes": 268435456,
+    "read_chain_nodes": 64
+  },
+  "schema_version": 1,
+  "system": {
+    "architecture": "x86_64",
+    "kernel": "5.10.0-60.18.0.50.oe2203.x86_64",
+    "os": "openEuler 22.03 LTS",
+    "platform": "linux"
+  }
+}
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 stats --json
+{
+  "blob_references": 5,
+  "commits_reachable": 2,
+  "index_entries": 1,
+  "index_removed": 0,
+  "local_branches": 1,
+  "max_reachable_chain_nodes": 1,
+  "notes": "Counts include pins, stash synthetic commits, retained reflog and physical delta bases. Bytes are object file lengths, not disk allocation. Depth includes full base (full=1).",
+  "object_storage_bytes": 3015,
+  "objects_reachable": 6,
+  "objects_total": 20,
+  "reachable_delta_objects": 0,
+  "remote_branches": 0,
+  "schema_version": 1,
+  "stashes": 0,
+  "tags": 0
+}
+exit = 0
+$ /home/oslab/os-lab/myvcs-p1.JwO5P7/target/release/myvcs --repo /tmp/myvcs-p1-demo-55wvz2z5 verify
+verify ok: 2 commit(s), 5 blob reference(s), 6 reachable object(s)
+exit = 0
+PASS P1 CLI demonstration; retained workspace: /tmp/myvcs-p1-demo-55wvz2z5

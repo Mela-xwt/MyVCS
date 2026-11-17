@@ -1,0 +1,21 @@
+   Compiling myvcs v0.1.0 (/mnt/d/DOWNLOAD/OperatingSystems/group_work)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.07s
+     Running tests/p1_features.rs (/tmp/myvcs-p1-target/debug/deps/p1_features-4ca9afd8c17c7a96)
+
+running 13 tests
+test ignore_root_rules_unicode_and_explicit_target ... ok
+test legacy_deep_chain_readable_missing_and_corrupt_bases_fail ... ok
+test restore_rejects_untracked_and_unsafe_paths ... ok
+test diagnostics_stats_are_readonly_and_count_namespaces ... ok
+test ignore_consistent_negation_tracked_and_source ... ok
+test staged_diff_and_restore_preserve_work_index_head ... ok
+test stash_unborn_and_untracked_collision ... ok
+test stash_pop_conflicts_drop_and_stable_ids ... ok
+test stash_three_way_nonconflicting_and_conflicting_branch ... ok
+test stash_roundtrip_exact_index_untracked_ignore_and_gc ... ok
+test stash_push_interruption_retains_snapshot_and_can_recover ... ok
+test restore_crash_continue_abort_and_new_edit_protection ... ok
+test gc_new_chains_are_bounded_and_all_history_restores ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.22s
+

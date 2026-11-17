@@ -1,0 +1,3 @@
+PASS fixed principal, executable, repository root and sanitized service environment
+PASS malformed commands, traversal, symlink escape and identity injection rejected
+Gate acceptance workspace: /tmp/myvcs-stage3-gate-hksjbqgq

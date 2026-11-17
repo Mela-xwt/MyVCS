@@ -1,0 +1,312 @@
+    Checking myvcs v0.1.0 (/tmp/myvcs-p1-lint.0mErDx)
+warning: derefed type is same as origin
+  --> src/repo/branch_merge.rs:96:16
+   |
+96 | ...if cur.a...ref() ==...
+   |       ^^^^^...^^^^^ help: try: `cur`
+   |
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#needless_option_as_deref
+   = note: `#[warn(clippy::needless_option_as_deref)]` on by default
+
+warning: this `if` statement can be collapsed
+   --> src/repo/branch_merge.rs:663:9
+    |
+663 | /         if l...
+664 | |             ...
+665 | |             ...
+666 | |             ...
+...   |
+669 | |         }
+    | |_________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#collapsible_if
+    = note: `#[warn(clippy::collapsible_if)]` on by default
+help: collapse nested if block
+    |
+663 ~         if let Some(cg) = cg_guard.as_ref()
+664 ~             && let Some(result) = cg.fast_ancestor_check(ancestor, descendant) {
+665 |                 if !result {
+666 |                     return Ok(false);
+667 |                 }
+668 ~             }
+    |
+
+warning: this `if` statement can be collapsed
+   --> src/repo/branch_merge.rs:664:13
+    |
+664 | /             if l...
+665 | |                 ...
+666 | |                 ...
+667 | |                 }
+668 | |             }
+    | |_____________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#collapsible_if
+help: collapse nested if block
+    |
+664 ~             if let Some(result) = cg.fast_ancestor_check(ancestor, descendant)
+665 ~                 && !result {
+666 |                     return Ok(false);
+667 ~                 }
+    |
+
+warning: enclosing `Ok` and `?` operator are unneeded
+   --> src/repo/core.rs:282:9
+    |
+282 | ...   Ok(se...t")?)
+    |       ^^^^^...^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#needless_question_mark
+    = note: `#[warn(clippy::needless_question_mark)]` on by default
+help: remove the enclosing `Ok` and `?` operator
+    |
+282 -         Ok(serde_json::from_str(&data).context("invalid status cache format")?)
+282 +         serde_json::from_str(&data).context("invalid status cache format")
+    |
+
+warning: this `if` statement can be collapsed
+   --> src/repo/receive.rs:234:21
+    |
+234 | /                     if !...
+235 | |                         ...
+236 | |                         ...
+237 | |                         ...
+...   |
+240 | |                     }
+    | |_____________________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#collapsible_if
+help: collapse nested if block
+    |
+234 ~                     if !allowed.contains(&c.name)
+235 ~                         && let Some(old) = &c.expected {
+236 |                             if !view.is_ancestor(old, new)? {
+237 |                                 bail!("non-fast-forward update rejected");
+238 |                             }
+239 ~                         }
+    |
+
+warning: this `if` statement can be collapsed
+   --> src/repo/receive.rs:235:25
+    |
+235 | /                         if l...
+236 | |                             ...
+237 | |                             ...
+238 | |                             }
+239 | |                         }
+    | |_________________________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#collapsible_if
+help: collapse nested if block
+    |
+235 ~                         if let Some(old) = &c.expected
+236 ~                             && !view.is_ancestor(old, new)? {
+237 |                                 bail!("non-fast-forward update rejected");
+238 ~                             }
+    |
+
+warning: this `if` statement can be collapsed
+   --> src/repo/receive.rs:355:13
+    |
+355 | /             if !...
+356 | |                 ...
+357 | |                 ...
+358 | |                 ...
+...   |
+361 | |             }
+    | |_____________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#collapsible_if
+help: collapse nested if block
+    |
+355 ~             if !update.allow_non_fast_forward
+356 ~                 && let Some(old) = &update.expected {
+357 |                     if !view.is_ancestor(old, &update.new)? {
+358 |                         bail!("non-fast-forward update rejected");
+359 |                     }
+360 ~                 }
+    |
+
+warning: this `if` statement can be collapsed
+   --> src/repo/receive.rs:356:17
+    |
+356 | /                 if l...
+357 | |                     ...
+358 | |                     ...
+359 | |                     }
+360 | |                 }
+    | |_________________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#collapsible_if
+help: collapse nested if block
+    |
+356 ~                 if let Some(old) = &update.expected
+357 ~                     && !view.is_ancestor(old, &update.new)? {
+358 |                         bail!("non-fast-forward update rejected");
+359 ~                     }
+    |
+
+warning: this `if` statement can be collapsed
+   --> src/repo/ref_state.rs:409:9
+    |
+409 | /         if l...
+410 | |             ...
+411 | |             ...
+412 | |             }
+413 | |         }
+    | |_________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#collapsible_if
+help: collapse nested if block
+    |
+409 ~         if let Some(n) = filter
+410 ~             && n != "HEAD" {
+411 |                 validate_ref(n)?;
+412 ~             }
+    |
+
+warning: this `if` statement can be collapsed
+   --> src/repo/remote/team.rs:151:13
+    |
+151 | /             if l...
+152 | |                 ...
+153 | |                 ...
+154 | |                 }
+155 | |             }
+    | |_____________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#collapsible_if
+help: collapse nested if block
+    |
+151 ~             if let Some(s) = &src
+152 ~                 && s.starts_with("refs/tags/") != dst.starts_with("refs/tags/") {
+153 |                     bail!("refspec cannot cross heads/tags namespaces");
+154 ~                 }
+    |
+
+warning: this `if` statement can be collapsed
+   --> src/repo/remote/team.rs:315:17
+    |
+315 | /                 if l...
+316 | |                     ...
+317 | |                     ...
+318 | |                     ...
+...   |
+323 | |                 }
+    | |_________________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#collapsible_if
+help: collapse nested if block
+    |
+315 ~                 if let Some(b) = n.strip_prefix(&prefix)
+316 ~                     && !refs.contains_key(&format!("refs/heads/{b}")) {
+317 |                         changes.push(RefChange {
+...
+321 |                         });
+322 ~                     }
+    |
+
+warning: this `if` statement can be collapsed
+   --> src/repo/remote/transport.rs:160:13
+    |
+160 | /             if r...
+161 | |                 ...
+162 | |                 ...
+163 | |                 }
+164 | |             }
+    | |_____________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#collapsible_if
+help: collapse nested if block
+    |
+160 ~             if receiver.recv_timeout(Duration::from_secs(seconds)).is_err()
+161 ~                 && let Ok(mut child) = watched.lock() {
+162 |                     let _ = child.kill();
+163 ~                 }
+    |
+
+warning: manually reimplementing `div_ceil`
+   --> src/util.rs:633:19
+    |
+633 | ... = ((dat...lign) * ...
+    |       ^^^^^...^^^^^ help: consider using `.div_ceil()`: `data_len.div_ceil(align)`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#manual_div_ceil
+    = note: `#[warn(clippy::manual_div_ceil)]` on by default
+
+warning: this `if` statement can be collapsed
+   --> src/util.rs:682:21
+    |
+682 | /                     if l...
+683 | |                         ...
+684 | |                         ...
+685 | |                         ...
+...   |
+694 | |                     }
+    | |_____________________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#collapsible_if
+help: collapse nested if block
+    |
+682 ~                     if let Some(suffix) = name.strip_prefix("cpu")
+683 ~                         && suffix.parse::<u64>().is_ok() {
+684 |                             let node_path = e.path().join("topology").join("physical_package_id");
+...
+692 |                             }
+693 ~                         }
+    |
+
+warning: this `if` statement can be collapsed
+   --> src/util.rs:685:29
+    |
+685 | /                             if l...
+686 | |                                 ...
+687 | |                                 ...
+688 | |                                 ...
+...   |
+692 | |                             }
+    | |_____________________________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#collapsible_if
+help: collapse nested if block
+    |
+685 ~                             if let Ok(raw) = fs::read_to_string(&node_path)
+686 ~                                 && let Ok(n) = raw.trim().parse::<usize>() {
+687 |                                     if cpu_to_node.len() <= n {
+...
+690 |                                     cpu_to_node[n] = n;
+691 ~                                 }
+    |
+
+warning: this `if` statement can be collapsed
+   --> src/util.rs:767:5
+    |
+767 | /     if l...
+768 | |         ...
+769 | |         ...
+770 | |         }
+771 | |     }
+    | |_____^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#collapsible_if
+help: collapse nested if block
+    |
+767 ~     if let Ok(raw) = env::var("MYVCS_ETMEM_MADVISE_LIMIT_MB")
+768 ~         && let Ok(mb) = raw.parse::<u64>() {
+769 |             return mb.max(1) * 1024 * 1024;
+770 ~         }
+    |
+
+warning: `myvcs` (lib) generated 16 warnings (run `cargo clippy --fix --lib -p myvcs -- ` to apply 16 suggestions)
+warning: the borrowed expression implements the required traits
+   --> tests/team_remote.rs:129:41
+    |
+129 | ...st(&b.clone()));
+    |       ^^^^^^^^^^ help: change this to: `b.clone()`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.97.0/index.html#needless_borrows_for_generic_args
+    = note: `#[warn(clippy::needless_borrows_for_generic_args)]` on by default
+
+warning: `myvcs` (lib test) generated 16 warnings (16 duplicates)
+warning: `myvcs` (test "team_remote") generated 1 warning (run `cargo clippy --fix --test "team_remote" -p myvcs -- ` to apply 1 suggestion)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.05s
